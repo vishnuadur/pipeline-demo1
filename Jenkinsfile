@@ -31,13 +31,4 @@ pipeline {
     }
 }
 // These are the top-level post conditions. They must be direct children of the 'post' block.
-post {
-    success {
-        echo 'Build successful!'
-        emailext (
-            subject: "Build Success: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-            body: """<p>Build <b>SUCCESSFUL</b> in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
-            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-        )
-    }
-}
+
