@@ -1,0 +1,3 @@
+/home/ec2-user/workspace/vk-cscript/build/CMakeFiles/myfirmware.elf.dir
+/home/ec2-user/workspace/vk-cscript/build/CMakeFiles/edit_cache.dir
+/home/ec2-user/workspace/vk-cscript/build/CMakeFiles/rebuild_cache.dir
