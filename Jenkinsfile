@@ -31,21 +31,24 @@ pipeline {
     }
 }
 post {
-        always {
-        unstable {
-            echo 'Build marked as UNSTABLE!'
-            emailext (
-                subject: "Build Unstable: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-                body: """<p>Build became <b>UNSTABLE</b> in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
-        }
-        failure {
-            echo 'Build failed!'
-            emailext (
-                subject: "Build Failed: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-                body: """<p>Build failed in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
-        }
+    always {
+        // The `always` block is now correctly closed.
+        // You can add steps here if needed.
     }
+    unstable {
+        echo 'Build marked as UNSTABLE!'
+        emailext (
+            subject: "Build Unstable: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+            body: """<p>Build became <b>UNSTABLE</b> in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+        )
+    }
+    failure {
+        echo 'Build failed!'
+        emailext (
+            subject: "Build Failed: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+            body: """<p>Build failed in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+        )
+    }
+}
