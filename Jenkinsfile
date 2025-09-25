@@ -30,7 +30,7 @@ pipeline {
         }
     }
 }
-// The `post` block must be a top-level section, at the same level as the `pipeline` block.
+// These are the top-level post conditions. They must be direct children of the 'post' block.
 post {
     unstable {
         echo 'Build marked as UNSTABLE!'
