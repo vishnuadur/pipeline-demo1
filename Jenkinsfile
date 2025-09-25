@@ -32,19 +32,11 @@ pipeline {
 }
 // These are the top-level post conditions. They must be direct children of the 'post' block.
 post {
-    unstable {
-        echo 'Build marked as UNSTABLE!'
+    success {
+        echo 'Build successful!'
         emailext (
-            subject: "Build Unstable: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-            body: """<p>Build became <b>UNSTABLE</b> in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
-            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-        )
-    }
-    failure {
-        echo 'Build failed!'
-        emailext (
-            subject: "Build Failed: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-            body: """<p>Build failed in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
+            subject: "Build Success: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+            body: """<p>Build <b>SUCCESSFUL</b> in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
             recipientProviders: [[$class: 'DevelopersRecipientProvider']]
         )
     }
