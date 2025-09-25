@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'linuxgit' }
+    agent { label 'vkagent' }
 
     environment {
         GIT_REPO = 'https://github.com/vishnuadur/pipeline-demo1.git'
