@@ -32,9 +32,6 @@ pipeline {
 }
 // The `post` block must be a top-level section, at the same level as the `pipeline` block.
 post {
-    always {
-	80fb5ecc6cb34e1d90fc5c5a9976d4f66f7fee76
-    }
     unstable {
         echo 'Build marked as UNSTABLE!'
         emailext (
