@@ -17,8 +17,8 @@ pipeline {
             steps {
                 echo "Cloning the repo from Gitlab ........."
                 git branch: "${BRANCH}",
-                    url: "${GIT_REPO}",
-                    credentialsId: 'gitlab'
+                    url: "${GIT_REPO}", 
+                    credentialsId: '3d5896a1-d0ab-4b32-8e30-303784e47d51'
             }
         }
         stage('Build') {
@@ -30,22 +30,25 @@ pipeline {
         }
     }
 }
+// The `post` block must be a top-level section, at the same level as the `pipeline` block.
 post {
-        always {
-        unstable {
-            echo 'Build marked as UNSTABLE!'
-            emailext (
-                subject: "Build Unstable: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-                body: """<p>Build became <b>UNSTABLE</b> in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
-        }
-        failure {
-            echo 'Build failed!'
-            emailext (
-                subject: "Build Failed: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-                body: """<p>Build failed in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
-        }
+    always {
+        // This is an optional block.
     }
+    unstable {
+        echo 'Build marked as UNSTABLE!'
+        emailext (
+            subject: "Build Unstable: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+            body: """<p>Build became <b>UNSTABLE</b> in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+        )
+    }
+    failure {
+        echo 'Build failed!'
+        emailext (
+            subject: "Build Failed: ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+            body: """<p>Build failed in job <b>${env.JOB_NAME}</b> [#${env.BUILD_NUMBER}]</p>""",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+        )
+    }
+}
