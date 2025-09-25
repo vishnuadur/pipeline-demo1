@@ -32,8 +32,8 @@ pipeline {
 }
 post {
     always {
-        // The `always` block is now correctly closed.
-        // You can add steps here if needed.
+        // This is an optional block for steps that run on all outcomes.
+        // The `unstable` and `failure` blocks should be at this level.
     }
     unstable {
         echo 'Build marked as UNSTABLE!'
