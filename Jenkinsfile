@@ -17,8 +17,8 @@ pipeline {
             steps {
                 echo "Cloning the repo from Gitlab ........."
                 git branch: "${BRANCH}",
-                    url: "${GIT_REPO}",
-                    credentialsId: 'gitlab'
+                    url: "${GIT_REPO}", 
+                    credentialsId: '3d5896a1-d0ab-4b32-8e30-303784e47d51'
             }
         }
         stage('Build') {
