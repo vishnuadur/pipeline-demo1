@@ -68,6 +68,49 @@ pipeline {
                 sh 'bash build.sh'
             }
         }
+        stage('Unit Tests') {
+            steps {
+                echo 'Running unit tests...'
+                sh '''
+                    if [ -d build ]; then
+                        cd build
+                        # Run all registered CTest tests
+                        ctest --output-on-failure
+                    else
+                        echo "Build directory not found!"
+                        exit 1
+                    fi
+                '''
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                echo 'Running SonarQube (SonarCloud) analysis...'
+                withSonarQubeEnv("${SONARQUBE_ENV}") {
+                    sh '''
+                        sonar-scanner \
+                          -Dsonar.organization=${SONAR_ORGANIZATION} \
+                          -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                          -Dsonar.sources=src \
+                          -Dsonar.cfamily.compile-commands=compile_commands.json \
+                          -Dsonar.host.url=https://sonarcloud.io \
+                          -Dsonar.sourceEncoding=UTF-8
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+        success {
+            echo 'Build, lint, and SonarCloud analysis completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs or SonarCloud dashboard.'
+        }
     }
 }
 // These are the top-level post conditions. They must be direct children of the 'post' block.
